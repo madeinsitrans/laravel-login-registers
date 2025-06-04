@@ -229,20 +229,20 @@
                 optIdType:{required:true, type:"numeros", name:"Tipo Identificacion"}
             };
             
-            if($('#optIdType').value == 7){
+            if($('#optIdType').val() == '7'){
                 dataValida.txtNroIdentificacion = {required:true, type:"pasaporte", name:"Nro Identificacion"};
             }else{
                 dataValida.txtNroIdentificacion = {required:true, type:"cedula", name:"Nro Identificacion"};
             }
             
-            dataValida.txtNombre = {required:true, type:"texto_espacio", name:"Nombre"};
-            
-            if($('#optIdType').value !== 6){
+            if($('#optIdType').val() !== '6'){
+                dataValida.txtNombre = {required:true, type:"texto_espacio", name:"Nombre"};
                 dataValida.txtPrimerApellido = {required:true, type:"texto", name:"Primer Apellido"};
                 if(($('#txtSegundoApellido').val()).length > 0 ){
                     dataValida.txtSegundoApellido = {required:true, type:"texto", name:"Segundo Apellido"};
                 }
             }else{
+                dataValida.txtNombre = {required:true, type:"textoNumero", name:"Nombre"};
                 if(($('#txtPrimerApellido').val()).length > 0){
                     toastr["error"]('Un Nit no debe contener primer apellido', 'Error');
                     return;
@@ -280,11 +280,15 @@
                             r = /^[A-Z0-9]+$/.test(val);
                         }else if(dat[i].type == 'texto'){
                             r = /^[A-Za-z]+$/.test(val);
+                        }else if(dat[i].type == 'textoNumero'){
+                            r = /^[A-Za-z0-9\s]+$/.test(val);
                         }else if(dat[i].type == 'email'){
                             r = /^[a-z0-9]+([.-][a-z0-9]+)*@[a-z]+\.[a-z]{2,4}$/.test(val);
                         }else{
                             r = _validar(val, dat[i].type);
                         }
+                        console.log(dat[i].type);
+                        console.log(val);
                         console.log(r);
                         if (!r) {
                             fields += (fields ? ", " : "") + dat[i].name;

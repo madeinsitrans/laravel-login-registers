@@ -272,7 +272,6 @@
                 
                 if (document.getElementById(i) !== undefined) {
                     val = document.getElementById(i).value;
-                    
                     if (val) {
                         if(dat[i].type == 'texto_espacio'){
                             r = /^[A-Za-z\s]+$/.test(val);  //valida letras y espacio
@@ -281,15 +280,12 @@
                         }else if(dat[i].type == 'texto'){
                             r = /^[A-Za-z]+$/.test(val);
                         }else if(dat[i].type == 'textoNumero'){
-                            r = /^[A-Za-z0-9\s]+$/.test(val);
+                            r = /^[A-Za-z0-9.\s]+$/.test(val);
                         }else if(dat[i].type == 'email'){
-                            r = /^[a-z0-9]+([.-][a-z0-9]+)*@[a-z]+\.[a-z]{2,4}$/.test(val);
+                            r = /^[a-z0-9]+([._-][a-z0-9]+)*@[a-z0-9.-]+\.[a-z]{2,}$/i.test(val);
                         }else{
                             r = _validar(val, dat[i].type);
                         }
-                        console.log(dat[i].type);
-                        console.log(val);
-                        console.log(r);
                         if (!r) {
                             fields += (fields ? ", " : "") + dat[i].name;
                             msg = '<small class="form-control-feedback">Este Campo Es Obligatorio O Invalido</small>';
@@ -383,7 +379,7 @@
             const regex = /[^A-Za-záéíóúÁÉÍÓÚÑñ]/g;
             
             if (select.value === "6") { //NIT 
-                const regex2 = /[^A-Za-zÑñ0-9\s]/g;
+                const regex2 = /[^A-Za-zÑñ0-9.\s]/g;
                 nombre.value = nombre.value.replace(regex2, '').toUpperCase();
             }else{
                 const regex2 = /[^A-Za-zÑñ\s]/g;

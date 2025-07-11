@@ -53,7 +53,7 @@ class RegistersController extends Controller
             $person->segundo_apellido = null;
             $person->id_tipo_persona = 1;
             
-            if(empty($data['txtDigitoVerificacion'])){
+            if(empty($data['txtDigitoVerificacion']) && $data['txtDigitoVerificacion'] <> 0){
                 return response()->json(['ErrorBd' => 'Ingrese el digito de verificacion','TlErrorBd'=>'Error']);
             }
             $person->digito_verificacion = $data['txtDigitoVerificacion'];
